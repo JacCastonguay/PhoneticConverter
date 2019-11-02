@@ -20,6 +20,9 @@ namespace PhoneticTranslator
         public static readonly List<char> diptongs = new List<char>()
         {'i', 'u'};
 
+        public static readonly List<char> cModifiers = new List<char>()
+        {'i', 'e'};
+
         //public static readonly Dictionary<string, string> easyFlips = new Dictionary<string, string>() 
         //{
         //    {"j", "x"}, {"v","b"}, {"h","" }

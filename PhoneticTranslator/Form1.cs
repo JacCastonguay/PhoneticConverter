@@ -20,6 +20,11 @@ namespace PhoneticTranslator
         private void ConvertButton_Click(object sender, EventArgs e)
         {
             string phrase = TBPhrase.Text.ToLower();
+            //quick special words fix
+            phrase = phrase.Replace(" y ", " Y ");
+            phrase = phrase.Replace(" un ", " UN ");
+            phrase = phrase.Replace(" una ", " UNA ");
+
             //Remove all spacing
             phrase = phrase.Replace(" ", string.Empty);
 
@@ -32,7 +37,8 @@ namespace PhoneticTranslator
             phrase = LetterSubstitue(phrase);
             //acentuate
 
-            //silaficación
+            //resilaficación. How do I check if against un/una (and others)? thought is maybe capitalize the words before hand so they don't get turned to 'w's.
+                                //if not, will have to acentuate before letter conversion.
 
             //modify coda
 
@@ -76,10 +82,82 @@ namespace PhoneticTranslator
                             current = 'ß';
                         }
                         break;
+                    case 'd':
+                        if (!Conventions.bdgNonModifiers.Contains(last) && last != 'l')
+                        {
+                            phrase = phrase.Insert(i, "ð");
+                            phrase = phrase.Remove(i + 1, 1);
+                            current = 'ð';
+                        }
+                        break;
+                    case 'g':
+                        if (Conventions.cModifiers.Contains(next))
+                        {
+                            phrase = phrase.Insert(i, "x");
+                            phrase = phrase.Remove(i + 1, 1);
+                            current = 'x';
+                        }
+                        else if(!Conventions.bdgNonModifiers.Contains(last))
+                        {
+                            phrase = phrase.Insert(i, "Ɣ");
+                            phrase = phrase.Remove(i + 1, 1);
+                            current = 'Ɣ';
+                        }
+                        break;
+                    case 'y':
+                        if (!Conventions.bdgNonModifiers.Contains(last) && last != 'l')
+                        {
+                            phrase = phrase.Insert(i, "ʝ");
+                            phrase = phrase.Remove(i + 1, 1);
+                            current = 'ʝ';
+                        }
+                        else
+                        {
+                            phrase = phrase.Insert(i, "ɉ");
+                            phrase = phrase.Remove(i + 1, 1);
+                            current = 'ɉ';
+                        }
+                        break;
+                    //Here we go
+                    case 'l':
+                        if (next == 'l')
+                        {
+                            phrase = phrase.Insert(i, "ʝ");
+                            phrase = phrase.Remove(i + 1, 2);
+                            current = 'ʝ';
+                        }
+                        else
+                        {
+                            phrase = phrase.Insert(i, "ɉ");
+                            phrase = phrase.Remove(i + 1, 2);
+                            current = 'ɉ';
+                        }
+                        i--;
+                        break;
+                    case 'c':
+                        if(next == 'h')
+                        {
+                            phrase = phrase.Insert(i, "ʧ");
+                            phrase = phrase.Remove(i + 1, 2);
+                            current = 'ʧ';
+                            i--;
+                        }
+                        else if (Conventions.cModifiers.Contains(next))
+                        {
+                            phrase = phrase.Insert(i, "s");
+                            phrase = phrase.Remove(i + 1, 1);
+                            current = 's';
+                        }
+                        else
+                        {
+                            phrase = phrase.Insert(i, "k");
+                            phrase = phrase.Remove(i + 1, 1);
+                            current = 'k';
+                        }
+                        break;
 
                     default:
                         break;
-
                 }
 
 
