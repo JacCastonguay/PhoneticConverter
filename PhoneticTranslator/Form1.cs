@@ -23,27 +23,72 @@ namespace PhoneticTranslator
             //Remove all spacing
             phrase = phrase.Replace(" ", string.Empty);
 
-            //pauses
+            //Remove pauses
             phrase = phrase.Replace(",", "|");
             phrase = phrase.Replace(".", "||");
 
-            phrase = SimpleSubstitute(phrase);
+
+            //Replace characters that are have s
+            phrase = LetterSubstitue(phrase);
+            //acentuate
+
+            //silaficación
+
+            //modify coda
+
 
             TBResults.Text = phrase;
         }
 
-        private static string SimpleSubstitute(string phrase)
+        private static string LetterSubstitue(string phrase)
         {
+            char last = '|';
+            char current = phrase[0];
+            char next = phrase[1];
+
             for (int i = 0; i < phrase.Length; i++)
             {
-                if (Conventions.easyFlips.ContainsKey(phrase[i].ToString()))
+                switch (phrase[i])
                 {
-                    string letter = phrase[i].ToString();
-                    phrase = phrase.Remove(i, 1);
-                    phrase = phrase.Insert(i, Conventions.easyFlips[letter]);
-                    //adjust for new length
-                    i += Conventions.easyFlips[letter].Length;
+                    //Simple replacement
+                    case 'j': //lol there are actually two 'x's, will change that eventually.
+                        phrase = phrase.Insert(i, "x");
+                        phrase = phrase.Remove(i+1, 1);
+                        current = 'x';
+                        //1 for 1, no need to adjust i.
+                        break;
+                    case 'u'://since ú is a different char, we can always change u
+                        phrase = phrase.Insert(i, "w");
+                        phrase = phrase.Remove(i + 1, 1);
+                        current = 'w';
+                        break;
+                    case 'i'://since í is a different char, we can always change u
+                        phrase = phrase.Insert(i, "j");
+                        phrase = phrase.Remove(i + 1, 1);
+                        current = 'j';
+                        break;
+                    //More complex
+                    case 'b':
+                        if (!Conventions.bdgNonModifiers.Contains(last))
+                        {
+                            phrase = phrase.Insert(i, "ß");
+                            phrase = phrase.Remove(i + 1, 1);
+                            current = 'ß';
+                        }
+                        break;
+
+                    default:
+                        break;
+
                 }
+
+
+                last = current;
+                current = next;
+                if (i < phrase.Length - 1)
+                    next = phrase[i + 1];
+                else
+                    next = '|';
             }
 
             return phrase;

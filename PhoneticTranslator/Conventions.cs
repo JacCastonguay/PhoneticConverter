@@ -20,11 +20,12 @@ namespace PhoneticTranslator
         public static readonly List<char> diptongs = new List<char>()
         {'i', 'u'};
 
-        public static readonly Dictionary<string, string> easyFlips = new Dictionary<string, string>() 
-        {
-            {"j", "x"}, {"qu","k"}, {"v","b"}, {"ch","ʧ" }, {"h","" }
-        };
+        //public static readonly Dictionary<string, string> easyFlips = new Dictionary<string, string>() 
+        //{
+        //    {"j", "x"}, {"v","b"}, {"h","" }
+        //};
 
-
+        public static readonly List<char> bdgNonModifiers = new List<char>()
+        {'|','m','n','ɲ' };//ɲ will have already been changed
     }
 }
