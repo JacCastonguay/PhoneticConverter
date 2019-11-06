@@ -48,51 +48,55 @@ namespace PhoneticTranslator
 
         private static string LetterSubstitue(string phrase)
         {
+            //change to string builder. use ref.
             char last = '|';
             char current = phrase[0];
             char next = phrase[1];
+            StringBuilder phonetic = new StringBuilder(phrase);
 
-            for (int i = 0; i < phrase.Length; i++)
+
+            for (int i = 0; i < phonetic.Length; i++)
             {
                 switch (phrase[i])
                 {
                     //Simple replacement
                     case 'j': //lol there are actually two 'x's, will change that eventually.
-                        current = JModifier(ref phrase, i);
+                        JModifier(ref phonetic, i, ref current);
                         break;
+                    //TODO: will currently incorrectly convert a llena with a <u> by itself in the pen-ultimate position (Do those exist?)
                     case 'u'://since ú is a different char, we can always change u
-                        current = UModifier(ref phrase, i);
+                        UModifier(ref phonetic, i, ref current);
                         break;
-                    case 'i'://since í is a different char, we can always change u
-                        current = IModifier(ref phrase, i);
-                        break;
-                    //More complex
-                    case 'b':
-                        BVModifier(ref phrase, last, ref current, i);
-                        break;
-                    case 'v':
-                        BVModifier(ref phrase, last, ref current, i);
-                        break;
-                    case 'd':
-                        DModifier(ref phrase, last, ref current, i);
-                        break;
-                    case 'g':
-                        GModifier(ref phrase, last, ref current, next, i);
-                        break;
-                    case 'y':
-                        current = YModifier(ref phrase, last, i);
-                        break;
-                    //Here we go
-                    case 'l':
-                        current = LModifier(ref phrase, next, ref i);
-                        break;
-                    case 'c':
-                        current = CModifier(ref phrase, next, ref i);
-                        break;
-                    //Limiting /s/ to [s] & [z]. Might expand later.
-                    case 's':
-                        current = SModifier(ref phrase, next, ref i);
-                        break;
+                    //case 'i'://since í is a different char, we can always change u
+                    //    current = IModifier(ref phrase, i);
+                    //    break;
+                    ////More complex
+                    //case 'b':
+                    //    BVModifier(ref phrase, last, ref current, i);
+                    //    break;
+                    //case 'v':
+                    //    BVModifier(ref phrase, last, ref current, i);
+                    //    break;
+                    //case 'd':
+                    //    DModifier(ref phrase, last, ref current, i);
+                    //    break;
+                    //case 'g':
+                    //    GModifier(ref phrase, last, ref current, next, i);
+                    //    break;
+                    //case 'y':
+                    //    current = YModifier(ref phrase, last, i);
+                    //    break;
+                    ////Here we go
+                    //case 'l':
+                    //    current = LModifier(ref phrase, next, ref i);
+                    //    break;
+                    //case 'c':
+                    //    current = CModifier(ref phrase, next, ref i);
+                    //    break;
+                    ////Limiting /s/ to [s] & [z]. Might expand later.
+                    //case 's':
+                    //    current = SModifier(ref phrase, next, ref i);
+                    //    break;
                     default:
                         break;
                 }
@@ -106,7 +110,7 @@ namespace PhoneticTranslator
                     next = '|';
             }
 
-            return phrase;
+            return phonetic.ToString();
         }
 
         private static char CModifier(ref string phrase, char next, ref int i)
@@ -148,7 +152,7 @@ namespace PhoneticTranslator
             else
             {
                 phrase = phrase.Insert(i, "ɉ");
-                phrase = phrase.Remove(i + 1, 2);
+                phrase = phrase.Remove(i + 1, 1);
                 current = 'ɉ';
             }
             i--;
@@ -225,23 +229,17 @@ namespace PhoneticTranslator
             return current;
         }
 
-        private static char UModifier(ref string phrase, int i)
+        private static void UModifier(ref StringBuilder phonetic, int i, ref char current)
         {
-            char current;
-            phrase = phrase.Insert(i, "w");
-            phrase = phrase.Remove(i + 1, 1);
+            phonetic[i] = 'w';
             current = 'w';
-            return current;
         }
 
-        private static char JModifier(ref string phrase, int i)
+        private static void JModifier(ref StringBuilder phonetic, int i, ref char current)
         {
-            char current;
-            phrase = phrase.Insert(i, "x");
-            phrase = phrase.Remove(i + 1, 1);
+            phonetic[i] = 'x';
             current = 'x';
             //1 for 1, no need to adjust i.
-            return current;
         }
 
         //TODO: apply and test.
