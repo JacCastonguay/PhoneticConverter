@@ -22,6 +22,9 @@ namespace PhoneticTranslator
 
         public static readonly List<char> cModifiers = new List<char>()
         {'i', 'e'};
+        public static readonly List<char> sonaras = new List<char>()
+        {'b', 'd', 'ɉ', 'g', 'v', 'x', 'ß', };  //TODO: Add delta ([d] aprox), gamma
+        //TODO: do nasals count as sonoras?
 
         //public static readonly Dictionary<string, string> easyFlips = new Dictionary<string, string>() 
         //{
