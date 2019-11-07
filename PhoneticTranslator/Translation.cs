@@ -43,18 +43,18 @@ namespace PhoneticTranslator
                         IModifier(ref phonetic, i, ref current, last, next);
                         break;
                     ////More complex
-                    //case 'b':
-                    //    BVModifier(ref phrase, last, ref current, i);
-                    //    break;
-                    //case 'v':
-                    //    BVModifier(ref phrase, last, ref current, i);
-                    //    break;
-                    //case 'd':
-                    //    DModifier(ref phrase, last, ref current, i);
-                    //    break;
-                    //case 'g':
-                    //    GModifier(ref phrase, last, ref current, next, i);
-                    //    break;
+                    case 'b':
+                        BVModifier(ref phonetic, last, ref current, i);
+                        break;
+                    case 'v':
+                        BVModifier(ref phonetic, last, ref current, i);
+                        break;
+                    case 'd':
+                        DModifier(ref phonetic, last, ref current, i);
+                        break;
+                    case 'g':
+                        GModifier(ref phonetic, last, ref current, next, i);
+                        break;
                     //case 'y':
                     //    current = YModifier(ref phrase, last, i);
                     //    break;
@@ -143,44 +143,39 @@ namespace PhoneticTranslator
             return current;
         }
 
-        private static void GModifier(ref string phrase, char last, ref char current, char next, int i)
+        private static void GModifier(ref StringBuilder phonetic, char last, ref char current, char next, int i)
         {
             if (Conventions.cModifiers.Contains(next))
             {
-                phrase = phrase.Insert(i, "x");
-                phrase = phrase.Remove(i + 1, 1);
+                phonetic[i] = 'x';
                 current = 'x';
             }
             else if (!Conventions.bdgNonModifiers.Contains(last))
             {
-                phrase = phrase.Insert(i, "Ɣ");
-                phrase = phrase.Remove(i + 1, 1);
+                phonetic[i] = 'Ɣ';
                 current = 'Ɣ';
             }
         }
 
-        private static void DModifier(ref string phrase, char last, ref char current, int i)
+        private static void DModifier(ref StringBuilder phonetic, char last, ref char current, int i)
         {
             if (!Conventions.bdgNonModifiers.Contains(last) && last != 'l')
             {
-                phrase = phrase.Insert(i, "ð");
-                phrase = phrase.Remove(i + 1, 1);
+                phonetic[i] = 'ð';
                 current = 'ð';
             }
         }
 
-        private static void BVModifier(ref string phrase, char last, ref char current, int i)
+        private static void BVModifier(ref StringBuilder phonetic, char last, ref char current, int i)
         {
             if (!Conventions.bdgNonModifiers.Contains(last))
             {
-                phrase = phrase.Insert(i, "ß");
-                phrase = phrase.Remove(i + 1, 1);
+                phonetic[i] = 'ß';
                 current = 'ß';
             }
-            else if (current == 'v')//TODO: test
+            else if (current == 'v')//<v> doesn't exist, if not [ß] replace with [b]
             {
-                phrase = phrase.Insert(i, "b");
-                phrase = phrase.Remove(i + 1, 1);
+                phonetic[i] = 'b';
                 current = 'b';
             }
         }
