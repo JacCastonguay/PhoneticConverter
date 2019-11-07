@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.29020.237
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneticTranslator", "PhoneticTranslator\PhoneticTranslator.csproj", "{1270D0AE-B92D-4F93-8CBA-C835AB9129F4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PhoneticTranslatorTests", "PhoneticTranslatorTests\PhoneticTranslatorTests.csproj", "{EDA56381-133C-4A9A-B5AB-8F29FD3BF8B4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{1270D0AE-B92D-4F93-8CBA-C835AB9129F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1270D0AE-B92D-4F93-8CBA-C835AB9129F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1270D0AE-B92D-4F93-8CBA-C835AB9129F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EDA56381-133C-4A9A-B5AB-8F29FD3BF8B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDA56381-133C-4A9A-B5AB-8F29FD3BF8B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDA56381-133C-4A9A-B5AB-8F29FD3BF8B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDA56381-133C-4A9A-B5AB-8F29FD3BF8B4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
