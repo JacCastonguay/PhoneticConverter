@@ -94,5 +94,69 @@ namespace PhoneticTranslator.Tests
             Assert.AreEqual("gringo"[0], gringo[0]);
             Assert.AreEqual("gringo".Length, gringo.Length);
         }
+
+        [TestMethod()]
+        public void LetterSubYTest()
+        {
+            string baʝa = Translation.LetterSubstitue("vaya");
+            Assert.AreEqual("baʝa"[2], baʝa[2]);
+            Assert.AreEqual("baʝa".Length, baʝa.Length);
+
+            //Will change once q is implemented
+            string unɉanqui = Translation.LetterSubstitue("unyanqui");//Not a real word
+            Assert.AreEqual("unɉanqui"[2], unɉanqui[2]);
+            Assert.AreEqual("unɉanqui".Length, unɉanqui.Length);
+
+            string elɉoðo = Translation.LetterSubstitue("elyodo");//Not a real word
+            Assert.AreEqual("elɉoðo"[2], elɉoðo[2]);
+            Assert.AreEqual("elɉoðo".Length, elɉoðo.Length);
+        }
+
+        [TestMethod()]
+        public void LetterSubLTest()
+        {
+            string laðo = Translation.LetterSubstitue("lado");
+            Assert.AreEqual("laðo"[0], laðo[0]);
+            Assert.AreEqual("laðo".Length, laðo.Length);
+
+            string ɉamo = Translation.LetterSubstitue("llamo");
+            Assert.AreEqual("ɉamo"[0], ɉamo[0]);
+            Assert.AreEqual("ɉamo"[1], ɉamo[1]);
+            Assert.AreEqual("ɉamo".Length, ɉamo.Length);
+
+            string siʝa = Translation.LetterSubstitue("silla");
+            Assert.AreEqual("siʝa"[2], siʝa[2]);
+            Assert.AreEqual("siʝa"[3], siʝa[3]);
+            Assert.AreEqual("siʝa".Length, siʝa.Length);
+        }
+
+        [TestMethod()]
+        public void LetterSubCTest()
+        {
+            string ʧiko = Translation.LetterSubstitue("chico");
+            Assert.AreEqual("ʧiko"[0], ʧiko[0]);
+            Assert.AreEqual("ʧiko"[2], ʧiko[2]);
+            Assert.AreEqual("ʧiko".Length, ʧiko.Length);
+
+            string nesesito = Translation.LetterSubstitue("necesito");
+            Assert.AreEqual("nesesito"[2], nesesito[2]);
+            Assert.AreEqual("nesesito".Length, nesesito.Length);
+        }
+
+        [TestMethod()]
+        public void LetterSubSTest()
+        {
+            string dezðe = Translation.LetterSubstitue("desde");
+            Assert.AreEqual("dezðe"[1], dezðe[1]);
+            Assert.AreEqual("dezðe".Length, dezðe.Length);
+
+            string sopa = Translation.LetterSubstitue("sopa");
+            Assert.AreEqual("sopa"[0], sopa[0]);
+            Assert.AreEqual("sopa".Length, sopa.Length);
+            
+            string loricos = Translation.LetterSubstitue("losricos"); //Not a real word
+            Assert.AreEqual("loricos"[2], loricos[2]);
+            Assert.AreEqual("loricos".Length, loricos.Length);
+        }
     }
 }
