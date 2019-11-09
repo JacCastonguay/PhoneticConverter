@@ -38,7 +38,7 @@ namespace PhoneticTranslator
             phrase = phrase.Replace(".", "||");
 
             //Replace characters that are have s
-            phrase = Translation.LetterSubstitue(phrase);
+            phrase = Translation.LetterSubstitution(phrase);
             //acentuate
 
             //resilaficación. How do I check if against un/una (and others)? thought is maybe capitalize the words before hand so they don't get turned to 'w's.

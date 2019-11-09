@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PhoneticTranslator
 {
-    static class Conventions
+    static class Classifications
     {
         public static readonly List<string> consonantBlends = new List<string>()
         {"bl", "fl", "cl", "gl", "pl", "cr", "br", "tr", "gr", "fr", "pr", "dr", "tl"};

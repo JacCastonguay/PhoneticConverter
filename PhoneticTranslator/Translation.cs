@@ -8,7 +8,7 @@ namespace PhoneticTranslator
 {
     public static class Translation
     {
-        public static string LetterSubstitue(string phrase)
+        public static string LetterSubstitution(string phrase)
         {
             //change to string builder. use ref.
             StringBuilder phonetic = new StringBuilder(phrase);
@@ -20,7 +20,7 @@ namespace PhoneticTranslator
             //Probably move this to its own class and set up automated tests.
             for (int i = 0; i < phonetic.Length; i++)
             {
-                if (i != 0)
+                if (i > 0)
                 {
                     last = current;
                     current = next;
@@ -28,6 +28,12 @@ namespace PhoneticTranslator
                         next = phonetic[i + 1];
                     else
                         next = '|';
+                }
+                else if (i == 0)
+                {
+                    last = '|';
+                    current = phonetic[0];
+                    next = phonetic[1];
                 }
 
                 switch (current)
@@ -63,33 +69,87 @@ namespace PhoneticTranslator
                         LModifier(ref phonetic, next, last, ref current , ref i);
                         break;
                     case 'c':
-                        CModifier(ref phonetic, next, ref current, ref i);
+                        CModifier(ref phonetic, ref next, ref current, ref i);
                         break;
                     //Limiting /s/ to [s] & [z]. Might expand later.
                     case 's':
                         SModifier(ref phonetic, ref current, next, ref i);
                         break;
-                    //Q
-                    //H
+                    case 'q':
+                        QModifier(ref phonetic, ref current, ref next, ref i);
+                        break;
+                    case 'h':
+                        HModifier(ref phonetic, ref current, last, ref next, ref i);
+                        break;
+                    case 'r':
+                        RModifier(ref phonetic, last, ref current, ref next, ref i);
+                        break;
                     default:
                         break;
                 }
-
             }
-
             return phonetic.ToString();
         }
 
-        private static char CModifier(ref StringBuilder phonetic, char next, ref char current, ref int i)
+        private static void RModifier(ref StringBuilder phonetic, char last, ref char current, ref char next, ref int i)
+        {
+            if (last == '|')//r
+            {
+
+            }
+            else if (next == 'r') //<rr> -> [r]
+            {
+                //if (phonetic.Length > i + 2)
+                //    next = phonetic[i + 2];
+                //else
+                //    next = '|';
+                current = last;
+                next = 'R';
+                phonetic.Remove(i + 1, 1);
+                i--;
+            }
+            //since rr gets changed to r and r gets turned to ɾ when we revisit, R will be temperarily assigned to be turned back into r
+            else if (current == 'R')
+            {
+                phonetic[i] = 'r';
+                current = 'r';
+            }
+            else //ɾ
+            {
+                phonetic[i] = 'ɾ';
+                current = 'ɾ';
+            }
+        }
+
+        private static void HModifier(ref StringBuilder phonetic, ref char current, char last, ref char next, ref int i)
+        {
+            //need to assign for last in order to set up for next
+            current = last;
+            phonetic.Remove(i, 1);
+            i--;
+        }
+        private static void QModifier(ref StringBuilder phonetic, ref char current, ref char next, ref int i)
+        {
+            //Nahuatl based words might have <q>s without <u>s, I am not accounting for those yet.
+            phonetic[i] = 'k';
+            current = 'k';
+            next = current;
+            phonetic.Remove(i + 1, 1);
+            i--;
+        }
+
+
+        private static void CModifier(ref StringBuilder phonetic, ref char next, ref char current, ref int i)
         {
             if (next == 'h')
             {
                 phonetic[i] = 'ʧ';
                 current = 'ʧ';
+                next = current;
                 phonetic.Remove(i + 1, 1);
                 i--;
             }
-            else if (Conventions.cModifiers.Contains(next))
+            else if (Classifications.cModifiers.Contains(next))
             {
                 phonetic[i] = 's';
                 current = 's';
@@ -99,11 +159,9 @@ namespace PhoneticTranslator
                 phonetic[i] = 'k';
                 current = 'k';
             }
-
-            return current;
         }
 
-        private static char LModifier(ref StringBuilder phonetic, char next, char last, ref char current, ref int i)
+        private static void LModifier(ref StringBuilder phonetic, char next, char last, ref char current, ref int i)
         {
             if (next == 'l')// <ll> -> /y/ -> [ʝ], [ɉ]
             {
@@ -114,12 +172,11 @@ namespace PhoneticTranslator
                 phonetic.Remove(i+1, 1);
                 i--;
             }
-            return current;
         }
 
-        private static char YModifier(ref StringBuilder phonetic, char last, ref char current, int i)
+        private static void YModifier(ref StringBuilder phonetic, char last, ref char current, int i)
         {
-            if (!Conventions.bdgNonModifiers.Contains(last) && last != 'l')
+            if (!Classifications.bdgNonModifiers.Contains(last) && last != 'l')
             {
                 phonetic[i] = 'ʝ';
                 current = 'ʝ';
@@ -129,17 +186,16 @@ namespace PhoneticTranslator
                 phonetic[i] = 'ɉ';
                 current = 'ɉ';
             }
-            return current;
         }
 
         private static void GModifier(ref StringBuilder phonetic, char last, ref char current, char next, int i)
         {
-            if (Conventions.cModifiers.Contains(next))
+            if (Classifications.cModifiers.Contains(next))
             {
                 phonetic[i] = 'x';
                 current = 'x';
             }
-            else if (!Conventions.bdgNonModifiers.Contains(last))
+            else if (!Classifications.bdgNonModifiers.Contains(last))
             {
                 phonetic[i] = 'Ɣ';
                 current = 'Ɣ';
@@ -148,7 +204,7 @@ namespace PhoneticTranslator
 
         private static void DModifier(ref StringBuilder phonetic, char last, ref char current, int i)
         {
-            if (!Conventions.bdgNonModifiers.Contains(last) && last != 'l')
+            if (!Classifications.bdgNonModifiers.Contains(last) && last != 'l')
             {
                 phonetic[i] = 'ð';
                 current = 'ð';
@@ -157,7 +213,7 @@ namespace PhoneticTranslator
 
         private static void BVModifier(ref StringBuilder phonetic, char last, ref char current, int i)
         {
-            if (!Conventions.bdgNonModifiers.Contains(last))
+            if (!Classifications.bdgNonModifiers.Contains(last))
             {
                 phonetic[i] = 'ß';
                 current = 'ß';
@@ -171,7 +227,7 @@ namespace PhoneticTranslator
 
         private static void IModifier(ref StringBuilder phonetic, int i, ref char current, char last, char next)
         {
-            if (Conventions.vowels.Contains(last) || Conventions.vowels.Contains(next))
+            if (Classifications.vowels.Contains(last) || Classifications.vowels.Contains(next))
             {
                 phonetic[i] = 'j';
                 current = 'j';
@@ -181,7 +237,7 @@ namespace PhoneticTranslator
 
         private static void UModifier(ref StringBuilder phonetic, int i, ref char current, char last, char next)
         {
-            if (Conventions.vowels.Contains(last) || Conventions.vowels.Contains(next))
+            if (Classifications.vowels.Contains(last) || Classifications.vowels.Contains(next))
             {
                 phonetic[i] = 'w';
                 current = 'w';
@@ -193,24 +249,22 @@ namespace PhoneticTranslator
         {
             phonetic[i] = 'x';
             current = 'x';
-            //1 for 1, no need to adjust i.
         }
 
-        //TODO: apply and test.
-        private static char SModifier(ref StringBuilder phonetic, ref char current, char next, ref int i)
+        private static void SModifier(ref StringBuilder phonetic, ref char current, char next, ref int i)
         {
-            if (next == 'r')//S is generally silent before [r]
-            {
-                phonetic.Remove(i, 1);
-                i = i--;
-            }
-            else if (Conventions.sonaras.Contains(next))
+            //TODO: Move to inter-word check (to be created)
+            //if (next == 'r')//S is generally silent before [r]
+            //{
+            //    phonetic.Remove(i, 1);
+            //    i = i--;
+            //}
+            //else 
+            if (Classifications.sonaras.Contains(next))
             {
                 phonetic[i] = 'z';
                 current = 'z';
             }
-
-            return current;
         }
     }
 }
