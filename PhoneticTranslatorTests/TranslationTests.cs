@@ -144,6 +144,9 @@ namespace PhoneticTranslator.Tests
 
             string ʧiwawa = Translation.LetterSubstitution("chihuahua");
             Assert.AreEqual("ʧiwawa", ʧiwawa);
+
+            //ahumado will give us issues currently. add h flag?
+            //spanishdict says is pronounce aw.ma.do, search for rule?
         }
 
         [TestMethod()]
@@ -157,6 +160,14 @@ namespace PhoneticTranslator.Tests
 
             string fjera = Translation.LetterSubstitution("fierra");
             Assert.AreEqual("fjera", fjera);
+        }
+
+
+        [TestMethod()]
+        public void ParseSyllablesTest()
+        {
+            string target = "tjempo";
+            target = Translation.ParseSyllables(target);
         }
     }
 }

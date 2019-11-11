@@ -36,6 +36,7 @@ namespace PhoneticTranslator
                     next = phonetic[1];
                 }
 
+                //TODO: Does not account for e before coda, nasal vowels, s derrivatives, ʎismo, ʃismo
                 switch (current)
                 {
                     //Simple replacement
@@ -265,6 +266,24 @@ namespace PhoneticTranslator
                 phonetic[i] = 'z';
                 current = 'z';
             }
+        }
+
+
+        public static string ParseSyllables(string word)
+        {
+            //List<Letter> syllables = new List<Letter>();
+            //for (int i = 0; i < word.Length; i++)
+            //{
+            //    Letter ltr = new Letter(word[i]);
+            //    syllables.Add(ltr);
+            //}
+            //for (int i = 0; i< syllables.Count; i++)
+            //{
+
+            //}
+            Word w = new Word(word);
+
+            return word;
         }
     }
 }
