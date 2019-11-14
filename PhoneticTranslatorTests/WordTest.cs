@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PhoneticTranslator;
@@ -27,6 +28,18 @@ namespace PhoneticTranslator.Tests
             Word kompɾar = new Word("kompɾar");
             var distinct4 = kompɾar.points.Except(new System.Collections.Generic.List<int> { 2 }).ToList();
             Assert.AreEqual(0, distinct4.Count);
+
+            Word telemundo = new Word("telemundo");
+            var distinct5 = telemundo.points.Except(new System.Collections.Generic.List<int> { 1, 3, 6 }).ToList();
+            Assert.AreEqual(0, distinct5.Count);
+
+            Word eksiste = new Word("eksiste");
+            var distinct6 = eksiste.points.Except(new System.Collections.Generic.List<int> { 1, 4 }).ToList();
+            Assert.AreEqual(0, distinct6.Count);
+
+            Word eksplica = new Word("eksplika");
+            var distinct7 = eksplica.points.Except(new System.Collections.Generic.List<int> { 2, 5 }).ToList();
+            Assert.AreEqual(0, distinct7.Count);
 
 
         }
