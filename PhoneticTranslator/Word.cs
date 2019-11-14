@@ -70,7 +70,7 @@ namespace PhoneticTranslator
                         if (Letters.Count > i + 2)
                         {
                             //if VCV -> V.CV
-                            if (Classifications.strongVowels.Contains(Letters[i + 2].phonema))//TODO: this is wrong.
+                            if (Letters[i + 2].typeLetter == 'V')
                             {
                                 points.Add(i);
                             }

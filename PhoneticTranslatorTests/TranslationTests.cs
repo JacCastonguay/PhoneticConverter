@@ -161,13 +161,5 @@ namespace PhoneticTranslator.Tests
             string fjera = Translation.LetterSubstitution("fierra");
             Assert.AreEqual("fjera", fjera);
         }
-
-
-        [TestMethod()]
-        public void ParseSyllablesTest()
-        {
-            string target = "tjempo";
-            target = Translation.ParseSyllables(target);
-        }
     }
 }

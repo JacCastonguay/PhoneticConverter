@@ -13,33 +13,33 @@ namespace PhoneticTranslator.Tests
         public void TestPointCheck()
         {
             Word tjempo = new Word("tjempo");
-            var distinct = tjempo.points.Except(new System.Collections.Generic.List<int> { 3 }).ToList();
-            Assert.AreEqual(0, distinct.Count);
+            string tjempoResult = "tjem.po";
+            Assert.AreEqual(tjempo.word, tjempoResult);
 
             Word baka = new Word("baka");
-            var distinct2 = baka.points.Except(new System.Collections.Generic.List<int> { 1 }).ToList();
-            Assert.AreEqual(0, distinct2.Count);
+            string bakaResult = "ba.ka";
+            Assert.AreEqual(baka.word, bakaResult);
 
 
             Word bjenbenidos = new Word("bjenbenidos");
-            var distinct3 = bjenbenidos.points.Except(new System.Collections.Generic.List<int> { 3, 5, 7 }).ToList();
-            Assert.AreEqual(0, distinct3.Count);
+            string bjenbenidosResult = "bjen.be.ni.dos";
+            Assert.AreEqual(bjenbenidos.word, bjenbenidosResult);
 
             Word kompɾar = new Word("kompɾar");
-            var distinct4 = kompɾar.points.Except(new System.Collections.Generic.List<int> { 2 }).ToList();
-            Assert.AreEqual(0, distinct4.Count);
+            string komprarResult = "kom.pɾar";
+            Assert.AreEqual(kompɾar.word, komprarResult);
 
             Word telemundo = new Word("telemundo");
-            var distinct5 = telemundo.points.Except(new System.Collections.Generic.List<int> { 1, 3, 6 }).ToList();
-            Assert.AreEqual(0, distinct5.Count);
+            string telemundoResult = "te.le.mun.do";
+            Assert.AreEqual(telemundo.word, telemundoResult);
 
             Word eksiste = new Word("eksiste");
-            var distinct6 = eksiste.points.Except(new System.Collections.Generic.List<int> { 1, 4 }).ToList();
-            Assert.AreEqual(0, distinct6.Count);
+            string eksisteResult = "ek.sis.te";
+            Assert.AreEqual(eksiste.word, eksisteResult);
 
-            Word eksplica = new Word("eksplika");
-            var distinct7 = eksplica.points.Except(new System.Collections.Generic.List<int> { 2, 5 }).ToList();
-            Assert.AreEqual(0, distinct7.Count);
+            Word eksplika = new Word("eksplika");
+            string eksplikaResult = "eks.pli.ka";
+            Assert.AreEqual(eksplika.word, eksplikaResult);
 
 
         }
