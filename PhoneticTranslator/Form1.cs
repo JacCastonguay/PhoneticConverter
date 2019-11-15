@@ -24,6 +24,12 @@ namespace PhoneticTranslator
              * current goal: Ability to transcribe any single word
              * 
              #########################*/
+
+            if (TBPhrase.Text.Contains(" "))
+            {
+                MessageBox.Show("Right now, you can only convert individual words");
+                return;
+            }
             string phrase = TBPhrase.Text.ToLower();
             //quick special words fix
             phrase = phrase.Replace(" y ", " Y ");
@@ -31,14 +37,15 @@ namespace PhoneticTranslator
             phrase = phrase.Replace(" una ", " UNA ");
 
             //Remove all spacing
-            phrase = phrase.Replace(" ", string.Empty);
+            //phrase = phrase.Replace(" ", string.Empty);
 
             //Remove pauses
-            phrase = phrase.Replace(",", "|");
-            phrase = phrase.Replace(".", "||");
+            //phrase = phrase.Replace(",", "|");
+            //phrase = phrase.Replace(".", "||");
 
             //Replace characters that are have s
-            phrase = Translation.LetterSubstitution(phrase);
+            Word word = new Word(Translation.LetterSubstitution(phrase));
+            string response = word.word;
             //acentuate
 
             //resilaficación. How do I check if against un/una (and others)? thought is maybe capitalize the words before hand so they don't get turned to 'w's.
@@ -46,7 +53,7 @@ namespace PhoneticTranslator
 
             //modify coda
 
-            TBResults.Text = phrase;
+            TBResults.Text = response;
         }
     }
 }

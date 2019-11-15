@@ -18,8 +18,10 @@ namespace PhoneticTranslator
         //TODO: Doesn't account for [ks] + C Ex: existe -> ek.sis.te, but experencía -> eks.pe.....
         public Word(string _word)
         {
+            _word = Translation.LetterSubstitution(_word);
+
             Letters = new List<Letter>();
-            if (_word.Contains("sp") || _word.Contains("sk"))
+            if (_word.Contains("sp") || _word.Contains("sk") || _word.Contains("st"))
                 containsRulebreaker = true;
             unsyllabilizedWord = _word;
 
@@ -119,6 +121,9 @@ namespace PhoneticTranslator
             temp = unsyllabilizedWord.IndexOf("sk");
             if (temp > 0)
                 ruleBreakers.Add(temp);
+            temp = unsyllabilizedWord.IndexOf("st");
+            if (temp > 0)
+                ruleBreakers.Add(temp);
 
             /*
              * target = i - 1
@@ -126,7 +131,7 @@ namespace PhoneticTranslator
              * k/p = i+1
              * recall: seperate when 
              */
-             foreach(int rb in ruleBreakers)
+            foreach (int rb in ruleBreakers)
                 points.Remove(rb - 1); //No biggie if it's not there
             
         }

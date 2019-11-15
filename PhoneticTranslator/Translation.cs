@@ -36,7 +36,7 @@ namespace PhoneticTranslator
                     next = phonetic[1];
                 }
 
-                //TODO: Does not account for e before coda, tildes (only need to change to regular), n changes, l changes, nasal vowels, s derrivatives, ʎismo, ʃismo
+                //TODO: Does not account for x, e before coda, tildes (only need to change to regular), n changes, l changes, nasal vowels, s derrivatives, ʎismo, ʃismo
                 switch (current)
                 {
                     //Simple replacement
