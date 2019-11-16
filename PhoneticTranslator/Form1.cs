@@ -44,7 +44,7 @@ namespace PhoneticTranslator
             //phrase = phrase.Replace(".", "||");
 
             //Replace characters that are have s
-            Word word = new Word(Translation.LetterSubstitution(phrase));
+            Word word = new Word(phrase);
             string response = word.word;
             //acentuate
 

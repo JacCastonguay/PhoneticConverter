@@ -85,6 +85,9 @@ namespace PhoneticTranslator
                     case 'r':
                         RModifier(ref phonetic, last, ref current, ref next, ref i);
                         break;
+                    case 'x':
+                        XModifier(ref phonetic, ref current, next, ref i);
+                        break;
                     default:
                         break;
                 }
@@ -268,22 +271,14 @@ namespace PhoneticTranslator
             }
         }
 
-
-        public static string ParseSyllables(string word)
-        {
-            //List<Letter> syllables = new List<Letter>();
-            //for (int i = 0; i < word.Length; i++)
-            //{
-            //    Letter ltr = new Letter(word[i]);
-            //    syllables.Add(ltr);
-            //}
-            //for (int i = 0; i< syllables.Count; i++)
-            //{
-
-            //
-            Word w = new Word(word);
-
-            return word;
+        private static void XModifier(ref StringBuilder phonetic, ref char current, char next, ref int i)
+        { 
+            //phonetic[i] = 'z';
+            //current = 'z';
+            phonetic.Remove(i, 1);
+            phonetic.Insert(i, "ks");
+            current = 's';
+            i++;
         }
     }
 }

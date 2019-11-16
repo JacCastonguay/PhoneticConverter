@@ -161,5 +161,15 @@ namespace PhoneticTranslator.Tests
             string fjera = Translation.LetterSubstitution("fierra");
             Assert.AreEqual("fjera", fjera);
         }
+
+        [TestMethod()]
+        public void LetterXTest()
+        {
+            string eksiste = Translation.LetterSubstitution("existe");
+            Assert.AreEqual("eksiste", eksiste);
+
+            string eksplika = Translation.LetterSubstitution("explica");
+            Assert.AreEqual("eksplika", eksplika);
+        }
     }
 }
