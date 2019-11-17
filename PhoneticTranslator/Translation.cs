@@ -231,7 +231,8 @@ namespace PhoneticTranslator
 
         private static void IModifier(ref StringBuilder phonetic, int i, ref char current, char last, char next)
         {
-            if (Classifications.vowels.Contains(last) || Classifications.vowels.Contains(next))
+            if ((Classifications.vowels.Contains(last)|| Classifications.accentedVowels.Contains(last)) 
+                || (Classifications.vowels.Contains(next) || Classifications.accentedVowels.Contains(next)))
             {
                 phonetic[i] = 'j';
                 current = 'j';
@@ -241,7 +242,8 @@ namespace PhoneticTranslator
 
         private static void UModifier(ref StringBuilder phonetic, int i, ref char current, char last, char next)
         {
-            if (Classifications.vowels.Contains(last) || Classifications.vowels.Contains(next))
+            if ((Classifications.vowels.Contains(last) || Classifications.accentedVowels.Contains(last))
+                || (Classifications.vowels.Contains(next) || Classifications.accentedVowels.Contains(next)))
             {
                 phonetic[i] = 'w';
                 current = 'w';

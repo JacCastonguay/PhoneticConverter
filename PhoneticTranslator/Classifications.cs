@@ -38,5 +38,20 @@ namespace PhoneticTranslator
 
         public static readonly List<char> bdgNonModifiers = new List<char>()
         {'|','m','n','ɲ' };//ɲ will have already been changed
+
+        public static readonly List<char> penultimaLetters = new List<char>()
+        {'s','n','o', 'a', 'e', 'i', 'u' };
+
+        public static readonly List<char> accentedVowels = new List<char>()
+        {'á','é', 'í', 'ó', 'ú'};
+
+        public static readonly Dictionary<char, char> accentDict = new Dictionary<char, char> 
+        {
+            {'á', 'a' },
+            {'é', 'e' },
+            {'í', 'i' },
+            {'ó', 'o' },
+            {'ú', 'u' }
+        };
     }
 }

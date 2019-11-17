@@ -37,6 +37,9 @@ namespace PhoneticTranslator
                 SPSKFix();
             //Put together.
             PutTogether();
+            //add syllable stress
+            accentuacion();
+
         }
 
         private void FindPointPositions()
@@ -144,6 +147,50 @@ namespace PhoneticTranslator
             {
                 word = word.Insert(points[i] + 1 + offset, ".");//+1 is so the period comes after the letter.
                 offset++;
+            }
+        }
+
+        private void accentuacion()
+        {
+            //Need to check for points at all
+            if (word.Contains('.'))
+            {
+                char accented = 'x';//Random non-vowel
+                foreach(char ltr in Classifications.accentedVowels)
+                {
+                    if (word.Contains(ltr))
+                        accented = ltr;
+                }
+                //If it has a tilde, stress that syllable.
+                if (accented != 'x')
+                {
+                    //TODO: also need to replace accented letter with unaccented.
+                    int subLen = word.LastIndexOf(accented);
+                    string tempWord = word.Substring(0, subLen);
+                    int ind = tempWord.LastIndexOf('.');
+                    word = word.Insert(ind + 1, "\'");
+                    word.Replace(accented, Classifications.accentDict[accented]);
+                }
+                //else if ends in n,s, or vowel, stress that.
+                else if (Classifications.penultimaLetters.Contains(word.Last()))
+                {
+                    int subLen = word.LastIndexOf('.');
+                    string tempWord = word.Substring(0, subLen);
+                    int ind = tempWord.LastIndexOf('.');
+
+                    word = word.Insert(ind + 1, "\'");
+                }
+                //else last stress
+                else
+                {
+                    int ind = word.LastIndexOf('.');
+                    word = word.Insert(ind+1, "\'");
+                }
+
+            }
+            else
+            {
+                word = word.Insert(0, "\'");
             }
         }
     }

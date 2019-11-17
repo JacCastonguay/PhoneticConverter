@@ -14,7 +14,7 @@ namespace PhoneticTranslator
         public Letter(char letter)
         {
             phonema = letter;
-            if (Classifications.phoneticvowels.Contains(letter))
+            if (Classifications.phoneticvowels.Contains(letter) || Classifications.accentedVowels.Contains(letter))
             {
                 typeLetter = 'V';
             }

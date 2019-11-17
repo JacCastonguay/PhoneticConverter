@@ -171,5 +171,13 @@ namespace PhoneticTranslator.Tests
             string eksplika = Translation.LetterSubstitution("explica");
             Assert.AreEqual("eksplika", eksplika);
         }
+
+        [TestMethod()]
+        public void RandomTests()
+        {
+            //last r was left unchanged.
+            string kompɾaɾ = Translation.LetterSubstitution("comprar");
+            Assert.AreEqual("kompɾaɾ", kompɾaɾ);
+        }
     }
 }
